@@ -1,0 +1,7 @@
+follow this link https://developers.google.com/calendar/api/quickstart/python to create a google calender API project
+follow all the instructions in the page for downloding a pip to making an auth id and download the json file to replace the one in this project and rename it to credentials 
+put in the directory of the json file where their is a directory of the json file
+
+DO NOT DONWLOAD THE PYTHON CODE THAT SHOWN IN THE GOOGLE PAGE IT ALREADY IN THE CODE
+after running for the 1st time and asking for Date information a page to authenticate you account will show 
+approve and everything is suppose to run 
