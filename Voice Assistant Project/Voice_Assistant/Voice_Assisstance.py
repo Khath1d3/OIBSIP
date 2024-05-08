@@ -48,7 +48,7 @@ def main(day):
   """
   creds = None
   if os.path.exists("token.json"):
-    creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+    creds = Credentials.from_authorized_user_file("token.json", SCOPES)  #token.json will download it self after you have connected with your google caleder API
     
   # If there are no (valid) credentials available, let the user log in.
   if not creds or not creds.valid:
@@ -56,7 +56,7 @@ def main(day):
       creds.refresh(Request())
     else:
       flow = InstalledAppFlow.from_client_secrets_file(
-          "C:\\Users\\Asanda Khathide\\OneDrive - Nelson Mandela University\\Documents\\My pracs\Internship PROJECTS\\Voice Assistant Project\\Voice_Assistant\\credentials.json", SCOPES
+          'Add you json file path here after downloading it', SCOPES
       )
       creds = flow.run_local_server(port=0)
     # Save the credentials for the next run
@@ -209,52 +209,64 @@ def tell_date():
 wake='turn on'
 print("Listening...")
 
+Calender_str=['what do i have','do i have plans','am i busy']
+note_str=['remember this','write this down','make a note']
+query_str=['Search this','google this for me','i have a question']
+
+listening = False
+
 while True:
-   
-   Calender_str = ['what do i have', 'do i have plans', 'am i busy']
-   note_str = ['remember this', 'write this down', 'make a note']
-   query_str = ['search this', 'google this for me', 'i have a question']
+    text = getaudio().lower()
+    
+    if 'turn on' in text:
+        if not listening:
+            listening = True
+            speak('I am ready')
+        continue 
 
+    if not listening:
+        continue  
+    
+    if 'turn off' in text:
+        listening = False
+        speak('Going to sleep')
+        print('Going to sleep')
+        continue  
 
-   text=getaudio().lower()
-   if text.count(wake)>0:
-      print(text)
-      speak('I am ready')
-      text=getaudio().lower()
-      Calender_str=['what do i have','do i have plans','am i busy']
-      note_str=['remember this','write this down','make a note']
-      query_str=['Search this','google this for me','i have a question']
-      print(text)
-      for phrase in Calender_str:
-         if phrase in text.lower():
-            date=get_date(text)
+    print(text)  
+    
+    for phrase in Calender_str:
+        if phrase in text:
+            date = get_date(text)
             if date:
-               main(date)
+                main(date)
             else:
-               speak('Please Try Again')
+                speak('Please try again')
             break
-      
 
-      for phrase in note_str:
-         if phrase in text.lower():
-            speak('What would you like me to write down')
-            note_text=getaudio().lower()
+    for phrase in note_str:
+        if phrase in text:
+            speak('What would you like me to write down?')
+            note_text = getaudio().lower()
             note(note_text)
-            speak('i\'ve made a note of that')
+            speak('I\'ve made a note of that')
             break
 
-      for phrase in query_str:
-         if phrase in text.lower():
-            speak('What would you like me to find out')
-            query_text=getaudio().lower()
+    for phrase in query_str:
+        if phrase in text:
+            speak('What would you like me to find out?')
+            query_text = getaudio().lower()
             search_google(query_text)
             break
 
-      if 'time' in text:
+    if 'time' in text:
         tell_time()
-      if 'date' in text:
+
+    if 'date' in text:
         tell_date()
-      print("Listening...")
+
+    print('Listening...')
+
 
 
     
