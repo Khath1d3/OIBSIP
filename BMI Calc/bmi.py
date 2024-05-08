@@ -19,4 +19,4 @@ print('Enter your weight and height below to determine your BMI category\n\n\n')
 weight=input('What is your weight(kg)? ')
 height=input('What is your height(m)? ')
 
-print(f'Your Category Of Your BMI Scale is {category(float(weight),float(height))}')
+print(f'\nYour Category Of Your BMI Scale is {category(float(weight),float(height))}')
