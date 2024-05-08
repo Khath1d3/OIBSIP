@@ -10,7 +10,7 @@ closed=False
 
 while not closed:
     txt=client.recv(1024).decode('utf-8')
-    if txt =='Close':
+    if txt =='close':
         closed=True
     else:
         print(txt)
